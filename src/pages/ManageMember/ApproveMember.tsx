@@ -13,6 +13,8 @@ export interface User {
   school: string;
   userName: string;
   userId: number;
+  korean: string;
+  english: string;
 }
 
 function ApproveMember() {

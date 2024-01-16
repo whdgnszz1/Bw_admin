@@ -20,7 +20,7 @@ interface UserEditModalProps {
   onClose: () => void;
 }
 
-function UserEditModal({ user, onClose }: UserEditModalProps) {
+function MemberEditModal({ user, onClose }: UserEditModalProps) {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -33,8 +33,6 @@ function UserEditModal({ user, onClose }: UserEditModalProps) {
         grade: user.grade,
         school: user.school,
         birth: user.birth,
-        korean: user.korean,
-        english: user.english,
       });
     }
   }, [user, form]);
@@ -42,11 +40,10 @@ function UserEditModal({ user, onClose }: UserEditModalProps) {
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
-      await putAPI("/user/approve", { ...values, userId: user.userId });
-      message.success("승인되었습니다.");
+      await putAPI("/user/member", { ...values, userId: user.userId });
+      message.success("유저 정보가 수정되었습니다.");
       onClose();
     } catch (error) {
-      message.error("유저 승인에 실패했습니다.");
       console.error("유저 승인에 실패했습니다.", error);
     }
   };
@@ -61,7 +58,7 @@ function UserEditModal({ user, onClose }: UserEditModalProps) {
           취소
         </Button>,
         <Button key="submit" onClick={handleSubmit}>
-          승인
+          수정
         </Button>,
       ]}
     >
@@ -129,4 +126,4 @@ function UserEditModal({ user, onClose }: UserEditModalProps) {
   );
 }
 
-export default UserEditModal;
+export default MemberEditModal;
