@@ -24,11 +24,19 @@ function Navbar() {
           </div>
           <button
             className={`flex h-full justify-center items-center px-4 rounded-lg relative ${
+              isActive("/member") ? "bg-blue-300 text-black" : "text-white"
+            }`}
+            onClick={() => navigate("/member")}
+          >
+            회원 관리
+          </button>
+          <button
+            className={`flex h-full justify-center items-center px-4 rounded-lg relative ${
               isActive("/schedule") ? "bg-blue-300 text-black" : "text-white"
             }`}
             onClick={() => navigate("/schedule")}
           >
-            Schedule
+            학생 플래너 조회
           </button>
           <button
             className={`flex h-full justify-center items-center px-4 rounded-lg relative ${
@@ -36,7 +44,7 @@ function Navbar() {
             }`}
             onClick={() => navigate("/opus")}
           >
-            OPUS
+            수업 / 컨설팅 등록
           </button>
           <button
             className={`flex h-full justify-center items-center px-4 rounded-lg relative ${
@@ -44,7 +52,7 @@ function Navbar() {
             }`}
             onClick={() => navigate("/consulting")}
           >
-            Consulting
+            컨설팅 메시지
           </button>
           <button
             className={`flex h-full justify-center items-center px-4 rounded-lg relative ${
@@ -52,7 +60,7 @@ function Navbar() {
             }`}
             onClick={() => navigate("/link")}
           >
-            LINK
+            링크
           </button>
           <button
             className={`flex h-full justify-center items-center px-4 rounded-lg relative ${
@@ -62,7 +70,7 @@ function Navbar() {
             }`}
             onClick={() => navigate("/notification")}
           >
-            Notification
+            공지
           </button>
         </div>
       </nav>

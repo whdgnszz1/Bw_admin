@@ -43,7 +43,7 @@ const SignIn: FC = () => {
       localStorage.setItem("user", JSON.stringify(result.data.user));
       Cookies.set("accessToken", result.data.accessToken);
       Cookies.set("refreshToken", result.data.refreshToken);
-      navigate("/schedule");
+      navigate("/member");
     } catch (error: any) {
       console.error("Signin error:", error.response?.data || error.message);
     }
@@ -120,7 +120,7 @@ const SignIn: FC = () => {
           </div>
           <footer className="w-full flex flex-col justify-center items-center">
             <div className="w-full mt-10 cursor-default text-white mb-10 flex justify-center items-center">
-              Bluewhale LINK
+              청경 LINK
             </div>
           </footer>
         </div>

@@ -29,7 +29,7 @@ function ConsultingLeftSideBar({
         >
           <div className="flex h-full gap-4 items-center">
             <BsPerson />
-            <span>Search Student</span>
+            <span>학생 검색</span>
           </div>
         </button>
         <div className="w-full h-10 flex justify-between p-4 text-white cursor-default">

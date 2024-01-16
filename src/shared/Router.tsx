@@ -9,6 +9,7 @@ import Opus from "../pages/Opus/Opus";
 import Schedule from "../pages/Schedule/Schedule";
 import SignIn from "../pages/SignIn";
 import { isLoggedInState } from "../states/userState";
+import ManageMember from "../pages/ManageMember/ManageMember";
 
 const Router = () => {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
@@ -29,6 +30,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SignIn />} />
+        <Route path="/member" element={<ManageMember />} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/opus" element={<Opus />} />
         <Route path="/consulting" element={<Consulting />} />

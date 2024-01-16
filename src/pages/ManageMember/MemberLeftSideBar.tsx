@@ -1,11 +1,12 @@
-import { BsPerson } from "react-icons/bs";
+import { BsCheck, BsSearch } from "react-icons/bs";
 
-function ScheduleLeftSideBar({
-  openUserSearchModal,
-}: {
-  openUserSearchModal: () => void;
-}) {
+interface MemberLeftSideBarProps {
+  onTabChange: (tab: string) => void;
+}
+
+function MemberLeftSideBar({ onTabChange }: MemberLeftSideBarProps) {
   const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
+
   return (
     <>
       <div className="h-full min-w-[320px] bg-[#161A1E]">
@@ -24,35 +25,25 @@ function ScheduleLeftSideBar({
           </div>
         </div>
         <button
-          onClick={openUserSearchModal}
           className="w-full h-10 flex justify-between p-4 text-white hover:bg-[#2C3238]"
+          onClick={() => onTabChange("approve")}
         >
           <div className="flex h-full gap-4 items-center">
-            <BsPerson />
-            <span>학생 검색</span>
+            <BsCheck />
+            <span>회원 승인</span>
           </div>
         </button>
-        <div className="w-full h-10 flex justify-between p-4 text-white cursor-default">
+        <button
+          className="w-full h-10 flex justify-between p-4 text-white hover:bg-[#2C3238]"
+          onClick={() => onTabChange("inquire")}
+        >
           <div className="flex h-full gap-4 items-center">
-            <span></span>
+            <BsSearch />
+            <span>회원 조회</span>
           </div>
-          <div className="flex h-full items-center"></div>
-        </div>
-        {/* <div>
-          {boards?.map((board: BoardType) => (
-            <button
-              key={board.boardId}
-              className="w-full h-10 flex justify-between p-4 text-white hover:bg-[#2C3238] items-center"
-              onClick={() =>
-                navigate(`/workspaces/${workspaceId}/boards/${board.boardId}`)
-              }
-            >
-              {board.boardName}
-            </button>
-          ))}
-        </div> */}
+        </button>
       </div>
     </>
   );
 }
-export default ScheduleLeftSideBar;
+export default MemberLeftSideBar;
