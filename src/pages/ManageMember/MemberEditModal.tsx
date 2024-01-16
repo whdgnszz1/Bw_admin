@@ -33,6 +33,8 @@ function MemberEditModal({ user, onClose }: UserEditModalProps) {
         grade: user.grade,
         school: user.school,
         birth: user.birth,
+        korean: user.korean,
+        english: user.english,
       });
     }
   }, [user, form]);

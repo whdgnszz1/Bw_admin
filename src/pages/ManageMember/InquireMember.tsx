@@ -23,7 +23,6 @@ function InquireMember() {
     isLoading,
     refetch,
   } = useQuery<User[]>(["member"], fetchMember);
-
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
