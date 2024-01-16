@@ -44,7 +44,8 @@ function MemberEditModal({ user, onClose }: UserEditModalProps) {
       message.success("유저 정보가 수정되었습니다.");
       onClose();
     } catch (error) {
-      console.error("유저 승인에 실패했습니다.", error);
+      message.error("유저 정보 수정에 실패했습니다.");
+      console.error("유저 정보 수정에 실패했습니다.", error);
     }
   };
 
