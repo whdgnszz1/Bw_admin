@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { postAPI } from "../../axios";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import Wrapper from "../../components/layout/Wrapper";
 import UserSearchModal from "../../components/modals/UserSearchModal";
 import useModal from "../../hooks/useModal";
-import { getISODateTime } from "../../utils/transformDateTime";
+import { getISODateTime } from "../../common/utils/transformDateTime";
 import ConsultingLeftSideBar from "./ConsultingLeftSideBar";
 import ConsultingSelectButton from "./ConsultingSelectButton";
 import ViewConsultingMessage from "./ViewingConsultingMessage";
 import WriteConsultingMessage from "./WriteConsultingMessage";
+import { useCreateConsulting } from "../../api/Consulting";
 
 function Consulting() {
   const [selectedUser, setSelectedUser] = useState<any>(null);
@@ -16,6 +16,8 @@ function Consulting() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [mode, setMode] = useState("selecting");
+  const formattedStartDate = getISODateTime(startDate);
+  const formattedEndDate = getISODateTime(endDate);
 
   const {
     isOpen: isUserSearchModalOpen,
@@ -26,23 +28,20 @@ function Consulting() {
 
   const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
 
-  const submitConsultingMessage = async () => {
-    try {
-      const formattedStartDate = getISODateTime(startDate);
-      const formattedEndDate = getISODateTime(endDate);
-
-      await postAPI("/consulting", {
-        content: message,
-        studentId: selectedUser.userId,
-        consultantId: currentUser.userId,
-        startDate: formattedStartDate,
-        endDate: formattedEndDate,
-      });
-      setMessage("");
+  const { mutate } = useCreateConsulting({
+    onSuccess: () => {
       setMode("viewing");
-    } catch (err) {
-      console.log(err);
-    }
+    },
+  });
+  const handleSubmit = async () => {
+    const createConsultingDTO = {
+      content: message,
+      studentId: selectedUser.userId,
+      consultantId: currentUser.userId,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
+    };
+    mutate({ dto: createConsultingDTO });
   };
 
   const handleStartDateChange = (date: string) => {
@@ -72,7 +71,7 @@ function Consulting() {
                 setMessage={setMessage}
                 handleStartDateChange={handleStartDateChange}
                 handleEndDateChange={handleEndDateChange}
-                submitConsultingMessage={submitConsultingMessage}
+                submitConsultingMessage={handleSubmit}
               />
             )}
             {mode === "viewing" && (

@@ -1,17 +1,12 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
-import { fetchConsultingMessages } from "../../api/consultingAPI";
+import { useGetConsultingList } from "../../api/Consulting/hooks/useGetConsultingList";
+import { ConsultingDTO } from "../../api/Consulting";
 
 function ViewConsultingMessage({ selectedUser, mode }: any) {
   const [selectedMessage, setSelectedMessage] = useState<any>(null);
 
-  const {
-    data: consultingMessages,
-    isError,
-    isLoading,
-  } = useQuery(
-    ["consultingMessages", selectedUser?.userId],
-    () => fetchConsultingMessages(selectedUser?.userId),
+  const { data: consultingMessages = [] } = useGetConsultingList<ConsultingDTO>(
+    selectedUser?.userId,
     {
       enabled: mode === "viewing" && !!selectedUser,
     }
@@ -45,8 +40,7 @@ function ViewConsultingMessage({ selectedUser, mode }: any) {
             <div className="flex flex-1 justify-center">작성일자</div>
             <div className="flex flex-1 justify-center">컨설턴트</div>
           </div>
-          {isLoading && <p>로딩중</p>}
-          {isError && <p>정보를 불러오는 도중 오류가 발생했습니다.</p>}
+
           <div className="w-full h-full flex flex-col gap-2">
             {consultingMessages &&
               consultingMessages.map((message: any) => (

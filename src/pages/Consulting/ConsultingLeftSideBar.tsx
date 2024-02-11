@@ -38,19 +38,6 @@ function ConsultingLeftSideBar({
           </div>
           <div className="flex h-full items-center"></div>
         </div>
-        {/* <div>
-          {boards?.map((board: BoardType) => (
-            <button
-              key={board.boardId}
-              className="w-full h-10 flex justify-between p-4 text-white hover:bg-[#2C3238] items-center"
-              onClick={() =>
-                navigate(`/workspaces/${workspaceId}/boards/${board.boardId}`)
-              }
-            >
-              {board.boardName}
-            </button>
-          ))}
-        </div> */}
       </div>
     </>
   );
