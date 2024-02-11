@@ -10,7 +10,7 @@ export const useGetConsultingList = <T = ConsultingDTO>(
   >
 ) => {
   return useQuery<ConsultingDTO, ApiError, T[]>({
-    queryKey: [CONSULTING_KEY],
+    queryKey: [CONSULTING_KEY, userId],
     queryFn: () => getConsultingList(userId),
     ...options,
   });
