@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { BsSearch } from "react-icons/bs";
 import { useQuery } from "react-query";
 import { getAPI } from "../../axios";
+import { Input, Button, Spin, List, Alert } from "antd";
+import { BsSearch } from "react-icons/bs";
 
 interface UserSearchModalProps {
   userSearchModalRef: any;
@@ -40,42 +41,44 @@ const UserSearchModal: React.FC<UserSearchModalProps> = ({
       >
         <div className="flex justify-between px-3 mt-2">
           <div>Search Student</div>
-          <button onClick={closeUserSearchModal}>X</button>
+          <Button onClick={closeUserSearchModal}>X</Button>
         </div>
         <div className="flex justify-between px-2 gap-4 mt-3 items-center mb-2">
-          <input
-            className="w-full h-8 border-2 rounded-md border-black px-2"
+          <Input
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button>
-            <BsSearch />
-          </button>
+          <Button
+            className="px-10 flex items-center justify-center"
+            icon={<BsSearch />}
+          />
         </div>
-        {isLoading && <div>Loading...</div>}
-        {isError && <div>검색도중 오류가 발생했습니다.</div>}
+        {isLoading && <Spin />}
+        {isError && (
+          <Alert message="검색 중 오류가 발생했습니다." type="error" />
+        )}
         {data && data.length === 0 && !isLoading && !isError && (
           <div className="w-full h-full flex justify-center items-center">
-            🙅‍♀️ 검색결과가 없어요
+            🙅‍♀️ 검색 결과가 없어요
           </div>
         )}
         {data && data.length > 0 && (
-          <ul>
-            {data.map((user: any) => (
-              <div
-                key={user.userId}
-                className="flex flex-col items-start justify-center w-full h-full px-3"
+          <List
+            className="px-2"
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={(user: any) => (
+              <List.Item
+                className="cursor-pointer rounded-md"
                 onClick={() => {
                   onUserSelect(user);
                   closeUserSearchModal();
                 }}
               >
-                <button>
-                  고{user.grade} {user.className} {user.userName}
-                </button>
-              </div>
-            ))}
-          </ul>
+                <List.Item.Meta title={`고${user.grade} ${user.userName}`} />
+              </List.Item>
+            )}
+          />
         )}
       </div>
     </div>
